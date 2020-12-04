@@ -9,10 +9,12 @@
 
 CRGB g_LEDs[NUM_LEDS] = {0};    // Frame buffer for FastLED
 
-int g_Brightness = 10;
+int g_Brightness = 255;
 
 #include "marquee.h"
 #include "twinkle.h"
+#include "comet.h"
+
 
 
 // FramesPerSecond
@@ -27,7 +29,7 @@ void setup()
   pinMode(LED_PIN, OUTPUT);
 
   FastLED.addLeds<WS2812B, LED_PIN, GRB>(g_LEDs, NUM_LEDS);               // Add our LED strip to the FastLED library
-  FastLED.setBrightness(10);
+  FastLED.setBrightness(255);
 }
 
 void loop() 
@@ -54,8 +56,11 @@ void loop()
 
     //DrawMarquee();
 
-    DrawTwinkle();
+    //DrawTwinkle();
 
+    DrawComet();
+
+    FastLED.setBrightness(g_Brightness);
     FastLED.show();
 
   }
