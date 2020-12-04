@@ -7,13 +7,17 @@
 #define NUM_LEDS    120          // FastLED definitions
 #define LED_PIN     5
 
+#define TIMES_PER_SECOND(x) EVERY_N_MILLISECONDS(1000/x)
+#define ARRAYSIZE(x) (sizeof(x)/sizeof(x[0]))  
+
 CRGB g_LEDs[NUM_LEDS] = {0};    // Frame buffer for FastLED
 
-int g_Brightness = 255;
+int g_Brightness = 80;
 
 #include "marquee.h"
 #include "twinkle.h"
 #include "comet.h"
+#include "bounce.h"
 
 
 
@@ -40,7 +44,9 @@ void loop()
   const uint8_t deltaHue = 10;
   const uint8_t hueDensity = 1;
 
-  for (;;)
+  BouncingBallEffect balls(NUM_LEDS,1,150);
+
+  while (true)
   {
     bLED = !bLED;                                                         // Blink the LED off and on  
     digitalWrite(ONBOARD_LED, bLED);
@@ -58,7 +64,9 @@ void loop()
 
     //DrawTwinkle();
 
-    DrawComet();
+    //DrawComet();
+
+    balls.Draw();
 
     FastLED.setBrightness(g_Brightness);
     FastLED.show();
