@@ -12,6 +12,9 @@ CRGB g_LEDs[NUM_LEDS] = {0};    // Frame buffer for FastLED
 int g_Brightness = 10;
 
 #include "marquee.h"
+#include "twinkle.h"
+
+
 // FramesPerSecond
 //
 // Tracks a weighted average to smooth out the values that it calcs as the simple reciprocal
@@ -24,7 +27,7 @@ void setup()
   pinMode(LED_PIN, OUTPUT);
 
   FastLED.addLeds<WS2812B, LED_PIN, GRB>(g_LEDs, NUM_LEDS);               // Add our LED strip to the FastLED library
-  FastLED.setBrightness(100);
+  FastLED.setBrightness(10);
 }
 
 void loop() 
@@ -49,7 +52,9 @@ void loop()
     /*for (int i = 0; i < NUM_LEDS; i++)
       g_LEDs[i] = CRGB::DarkOrange;*/
 
-    DrawMarquee();
+    //DrawMarquee();
+
+    DrawTwinkle();
 
     FastLED.show();
 
