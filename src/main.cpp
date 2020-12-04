@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#define FASTLED_INTERNAL
 #include <FastLED.h>
 
 #define ONBOARD_LED 1
@@ -8,6 +9,9 @@
 
 CRGB g_LEDs[NUM_LEDS] = {0};    // Frame buffer for FastLED
 
+int g_Brightness = 10;
+
+#include "marquee.h"
 // FramesPerSecond
 //
 // Tracks a weighted average to smooth out the values that it calcs as the simple reciprocal
@@ -20,7 +24,7 @@ void setup()
   pinMode(LED_PIN, OUTPUT);
 
   FastLED.addLeds<WS2812B, LED_PIN, GRB>(g_LEDs, NUM_LEDS);               // Add our LED strip to the FastLED library
-  FastLED.setBrightness(255);
+  FastLED.setBrightness(100);
 }
 
 void loop() 
@@ -38,10 +42,14 @@ void loop()
 
     // Handle LEDs
 
-    fill_rainbow(g_LEDs, NUM_LEDS, initialHue += hueDensity, deltaHue);
+    //fill_rainbow(g_LEDs, NUM_LEDS, initialHue += hueDensity, deltaHue);
+
+    //fill_solid(g_LEDs, NUM_LEDS, CRGB::MidnightBlue);
 
     /*for (int i = 0; i < NUM_LEDS; i++)
       g_LEDs[i] = CRGB::DarkOrange;*/
+
+    DrawMarquee();
 
     FastLED.show();
 
