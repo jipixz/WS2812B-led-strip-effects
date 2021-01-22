@@ -12,14 +12,14 @@
 
 CRGB g_LEDs[NUM_LEDS] = {0};    // Frame buffer for FastLED
 
-int g_Brightness = 80;
+int g_Brightness = 255;
 
 #include "marquee.h"
 #include "twinkle.h"
 #include "comet.h"
 #include "bounce.h"
-
-
+#include "breathing.h"
+#include "rgb.h"
 
 // FramesPerSecond
 //
@@ -34,6 +34,8 @@ void setup()
 
   FastLED.addLeds<WS2812B, LED_PIN, GRB>(g_LEDs, NUM_LEDS);               // Add our LED strip to the FastLED library
   FastLED.setBrightness(255);
+
+  FastLED.clear();
 }
 
 void loop() 
@@ -41,7 +43,7 @@ void loop()
   bool bLED = 0;
 
   uint8_t initialHue = 0;
-  const uint8_t deltaHue = 10;
+  const uint8_t deltaHue = 1;
   const uint8_t hueDensity = 1;
 
   BouncingBallEffect balls(NUM_LEDS,1,150);
@@ -49,13 +51,13 @@ void loop()
   while (true)
   {
     bLED = !bLED;                                                         // Blink the LED off and on  
-    digitalWrite(ONBOARD_LED, bLED);
+    //digitalWrite(ONBOARD_LED, bLED);
 
     // Handle LEDs
-
+    
     //fill_rainbow(g_LEDs, NUM_LEDS, initialHue += hueDensity, deltaHue);
 
-    //fill_solid(g_LEDs, NUM_LEDS, CRGB::MidnightBlue);
+    fill_solid(g_LEDs, NUM_LEDS, CRGB::Red);
 
     /*for (int i = 0; i < NUM_LEDS; i++)
       g_LEDs[i] = CRGB::DarkOrange;*/
@@ -66,9 +68,14 @@ void loop()
 
     //DrawComet();
 
-    balls.Draw();
+    //balls.Draw();
+
+    //breathing();
+
+    //rgb();
 
     FastLED.setBrightness(g_Brightness);
+    
     FastLED.show();
 
   }
