@@ -44,4 +44,6 @@ void DrawComet(){
             g_LEDs[j] = g_LEDs[j].fadeToBlackBy(fadeAmt);
 
     delay(20);
+
+    FastLED.show();
 }

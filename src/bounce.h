@@ -122,5 +122,7 @@ class BouncingBallEffect
             }
         }
         delay(20);
+
+        FastLED.show();
     }
 };

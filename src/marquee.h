@@ -18,4 +18,6 @@ void DrawMarquee(){
         g_LEDs[i] = CRGB::Black;
 
     delay(80);
+
+    FastLED.show();
 }
